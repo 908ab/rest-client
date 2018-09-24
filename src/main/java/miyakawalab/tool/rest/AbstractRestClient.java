@@ -20,6 +20,7 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,8 +83,7 @@ public abstract class AbstractRestClient<Req, Res> {
         try {
             HttpPost httpPost = new HttpPost(this.getUriWithRequestParams(requestParams));
             String json = this.mapper.writeValueAsString(body);
-            StringEntity entity = new StringEntity(json);
-            httpPost.setEntity(entity);
+            httpPost.setEntity(new StringEntity(json, StandardCharsets.UTF_8));
             this.headers.add(new BasicHeader("content-type", contentType));
             HttpResponse response = this.getHttpClient().execute(httpPost);
             this.checkError(response, Response.Status.CREATED, Response.Status.OK);
@@ -102,8 +102,7 @@ public abstract class AbstractRestClient<Req, Res> {
             this.baseUri = this.baseUri + "/" + targetId;
             HttpPut httpPut = new HttpPut(this.getUriWithRequestParams(requestParams));
             String json = this.mapper.writeValueAsString(body);
-            StringEntity entity = new StringEntity(json);
-            httpPut.setEntity(entity);
+            httpPut.setEntity(new StringEntity(json, StandardCharsets.UTF_8));
             this.headers.add(new BasicHeader("content-type", contentType));
             HttpResponse response = this.getHttpClient().execute(httpPut);
             this.checkError(response, Response.Status.NO_CONTENT);
