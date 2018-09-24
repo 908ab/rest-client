@@ -35,7 +35,7 @@ public abstract class AbstractRestClient<Req, Res> {
         this.baseUri = baseUri;
         pathParams.forEach(param -> this.baseUri = this.baseUri.replace("{" + param.getName() + "}", param.getValue()));
 
-        this.headers = headers;
+        this.headers = new ArrayList<>(headers);
 
         this.resClass = resClass;
         this.mapper = new ObjectMapper();
