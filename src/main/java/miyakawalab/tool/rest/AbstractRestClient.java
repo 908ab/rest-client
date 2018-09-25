@@ -50,7 +50,7 @@ public abstract class AbstractRestClient<Req, Res> {
             HttpResponse response = this.getHttpClient().execute(httpGet);
             this.checkError(response, Response.Status.OK);
 
-            String json = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+            String json = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
             return this.mapper.readValue(json, this.resClass);
         } catch (IOException e) {
             throw new InternalServerErrorException(this.resClass.getSimpleName() + " get method.\n" + e.getMessage());
@@ -68,7 +68,7 @@ public abstract class AbstractRestClient<Req, Res> {
             HttpResponse response = this.getHttpClient().execute(httpGet);
             this.checkError(response, Response.Status.OK);
 
-            String json = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+            String json = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
             return this.mapper.readValue(json, this.mapper.getTypeFactory().constructCollectionType(List.class, this.resClass));
         } catch (IOException e) {
             throw new InternalServerErrorException(this.resClass.getSimpleName() + " get method.\n" + e.getMessage());
@@ -158,7 +158,7 @@ public abstract class AbstractRestClient<Req, Res> {
             if (response.getStatusLine().getStatusCode() == status.getStatusCode()) { return; }
         }
 
-        String json = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+        String json = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
         ExceptionInformation information =
             this.mapper.readValue(json, ExceptionInformation.class);
 
