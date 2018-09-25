@@ -31,6 +31,24 @@ public class MemberRestClient extends AbstractRestClient<MemberReq, MemberRes> {
 }
 ```
 
+## Install
+* maven
+```
+<dependencies>
+    <dependency>
+        <groupId>miyakawalab.tool</groupId>
+        <artifactId>rest-client</artifactId>
+        <version>${version}</version>
+    </dependency>
+</dependencies>
+<repositories>
+    <repository>
+        <id>mongodb-dao</id>
+        <url>https://raw.github.com/908ab/rest-client/mvn-repo/</url>
+    </repository>
+</repositories>
+```
+
 ## Version
 > 1.0
 
