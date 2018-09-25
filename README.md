@@ -11,7 +11,7 @@ public class MemberRestClient extends AbstractRestClient<MemberReq, MemberRes> {
     public MemberRestClient(List<Header> headers, Long companyId) {
         super(
             "http://example.com/api/companies/{companyId}/members",
-            headers,
+            headers,    // HTTPヘッダ
             Collections.singletonList(new BasicNameValuePair("companyId", companyId.toString())),
             MemberRes.class
         );
