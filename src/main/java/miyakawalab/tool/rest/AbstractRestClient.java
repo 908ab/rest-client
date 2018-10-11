@@ -132,17 +132,21 @@ public abstract class AbstractRestClient<Req, Res> {
         return this.delete(targetId, new ArrayList<>());
     }
 
-    protected void addHeader(Header header) {
+    protected final void addHeader(Header header) {
         this.headers.add(header);
     }
 
-    private HttpClient getHttpClient() {
+    protected final String getBaseUri() {
+        return this.baseUri;
+    }
+
+    protected final HttpClient getHttpClient() {
         return HttpClientBuilder.create()
             .setDefaultHeaders(this.headers)
             .build();
     }
 
-    private String getUriWithRequestParams(List<NameValuePair> requestParams) {
+    protected final String getUriWithRequestParams(List<NameValuePair> requestParams) {
         if (requestParams.size() > 0) {
             String requestParamString = requestParams.stream()
                 .map(NameValuePair::toString)
@@ -153,7 +157,7 @@ public abstract class AbstractRestClient<Req, Res> {
         return this.baseUri;
     }
 
-    private void checkError(HttpResponse response, Response.Status... successStatuses) throws IOException {
+    protected final void checkError(HttpResponse response, Response.Status... successStatuses) throws IOException {
         for (Response.Status status: successStatuses) {
             if (response.getStatusLine().getStatusCode() == status.getStatusCode()) { return; }
         }
